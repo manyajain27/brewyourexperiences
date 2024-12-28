@@ -52,3 +52,16 @@
         opacity: 1;
     }
 }
+.learn-more-button,
+.explore-trips-button{
+    width:186px;
+}
+@media screen and (max-width: 480px) {
+    .button-group{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+    }
+
+}

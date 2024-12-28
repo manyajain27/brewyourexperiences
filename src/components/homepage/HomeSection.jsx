@@ -50,11 +50,11 @@ function HomeSection() {
           </p>
 
           {/* Buttons */}
-          <div className="flex gap-4">
+          <div className="button-group flex gap-4">
             <button className="explore-trips-button text-black px-8 py-4 rounded-full font-semibold flex items-center gap-2 transition-colors">
               Explore Trips <ArrowRight className="h-5 w-5" />
             </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
+            <button className="learn-more-button border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
               Learn More
             </button>
           </div>
