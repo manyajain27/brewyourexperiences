@@ -1,0 +1,26 @@
+.nav-links:hover {
+    color: #27C3C5;
+    text-decoration: none;
+    
+}
+.nav-links{
+    font-family:'Lato'
+}
+.book-now:hover ,.explore-trips-button:hover{
+    transform: scale(1.05);
+}
+.book-now,.explore-trips-button{
+    background-color: #27C3C5;
+    transition: all 0.2s ease-in-out;
+}
+.nav-bar{
+    position: relative;
+    margin-top: 10px;
+}
+.nav-bar-full{
+    background-color:rgba(0,0,0,0.3);
+}
+.container1{
+    padding:20px;
+    border-radius:30px;
+}
