@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowRight, ArrowDown } from 'lucide-react';
 import { TypeAnimation } from 'react-type-animation'; // Import smoother typing animation
 import bgImage from '../../media/bali-bg.jpg'; // Import background image
-
+import NavBar from './NavBar'; // Import NavBar component
 
 
 function HomeSection() {
@@ -20,10 +20,10 @@ function HomeSection() {
         <div className="absolute inset-0 bg-black/65"></div>
       </div>
 
-      
+      <NavBar/>
 
       {/* Content Section */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex mt-12">
         <div className="container1 max-w-3xl flex flex-col gap-4">
           {/* Typing Animation for Heading */}
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 flex flex-col gap-2">

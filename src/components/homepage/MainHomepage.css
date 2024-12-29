@@ -13,10 +13,10 @@
     background-color: #27C3C5;
     transition: all 0.2s ease-in-out;
 }
-.nav-bar{
+/* .nav-bar{
     position: relative;
     margin-top: 10px;
-}
+} */
 .nav-bar-full{
     background-color:rgba(0,0,0,0.3);
 }
@@ -64,4 +64,9 @@
         gap: 28px;
     }
 
+}
+@media screen and (max-height: 840px){
+    .scroll{
+        display: none;
+    }
 }

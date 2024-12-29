@@ -1,12 +1,21 @@
 import React from 'react'
-import NavBar from './NavBar'
 import HomeSection from './HomeSection'
+import About from '../about/About'
+import ContactUs from '../contact/ContactUs'
+import UpcomingTrips from '../trips/UpcomingTrips'
+import Footer from '../footer/Footer'
 import './MainHomepage.css'
+
+
 function MainHomepage() {
   return (
     <div>
-      <NavBar/>
+      
       <HomeSection/>
+      <About/>
+      <UpcomingTrips/>
+      <ContactUs/>
+      <Footer/>
     </div>
   )
 }
