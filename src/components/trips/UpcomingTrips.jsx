@@ -32,7 +32,7 @@ function UpcomingTrips() {
         <div className="min-h-screen md:h-auto bg-gray-50  py-24 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Upcoming Adventures</h2>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Upcoming Trips</h2>
               <div className="w-24 h-1 bg-[#27C3C5] mx-auto mb-8"></div>
               <p className="text-gray-600 max-w-2xl mx-auto">
                 Join our carefully curated trips designed to create unforgettable memories and authentic cultural experiences.

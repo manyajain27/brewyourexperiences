@@ -27,9 +27,9 @@ function HomeSection() {
         {/* Content Section */}
         <div 
           // Apply padding only for iPads and smaller screens
-          className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10  flex items-center"
+          className="main-container relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10  flex items-center"
         >
-          <div className="container1 max-w-3xl flex flex-col gap-4">
+          <div className="container1  max-w-3xl flex flex-col gap-4">
             {/* Typing Animation for Heading */}
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 flex flex-col gap-2">
               <span>Craft Your Perfect</span>{' '}

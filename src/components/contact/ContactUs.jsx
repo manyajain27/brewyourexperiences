@@ -15,15 +15,19 @@ function ContactUs() {
                 <form className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#27C3C5] focus:ring-[#27C3C5]" />
+                    <input type="text" placeholder='Enter your name' className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#27C3C5] focus:ring-[#27C3C5]" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#27C3C5] focus:ring-[#27C3C5]" />
+                    <input type="email" placeholder='Enter your email' className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#27C3C5] focus:ring-[#27C3C5]" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">Phone Number (WhatsApp)</label>
+                    <input type="number" placeholder='(+91)' className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#27C3C5] focus:ring-[#27C3C5]" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">Message</label>
-                    <textarea rows={4} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#27C3C5] focus:ring-[#27C3C5]"></textarea>
+                    <textarea rows={4} placeholder='Write down your message...' className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#27C3C5] focus:ring-[#27C3C5]"></textarea>
                   </div>
                   <button className="w-full bg-[#27C3C5] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#1fa9ab] transition-colors">
                     Send Message
@@ -38,7 +42,7 @@ function ContactUs() {
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold">Email Us</h4>
-                    <p className="text-gray-600">info@brewyourexperiences.com</p>
+                    <p className="text-gray-600">brewyourexperiences@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -47,7 +51,7 @@ function ContactUs() {
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold">Call Us</h4>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">(+91) 9920302249 / 9820201485</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -56,7 +60,7 @@ function ContactUs() {
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold">Visit Us</h4>
-                    <p className="text-gray-600">123 Adventure Street<br />Wanderlust City, WC 12345</p>
+                    <p className="text-gray-600">--<br />--</p>
                   </div>
                 </div>
               </div>
