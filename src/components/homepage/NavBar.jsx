@@ -23,19 +23,19 @@ const TripsDropdown = () => {
       
       {isDropdownOpen && (
         <div 
-          className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-gray-900/90 backdrop-blur-sm ring-1 ring-black ring-opacity-5"
-          style={{ zIndex: 1000 }}
+          className="absolute left-0 mt-2 w-48 opacity-70  border-2 rounded-md shadow-lg  backdrop-blur-sm ring-1 ring-black ring-opacity-5"
+          style={{ zIndex: 100 }}
         >
           <div className="py-1">
             <Link
               to="/trips/previous"
-              className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
+              className="block  px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors"
             >
               Previous Trips
             </Link>
             <Link
               to="/trips/upcoming"
-              className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
+              className="block px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors"
             >
               Upcoming Trips
             </Link>
@@ -72,7 +72,10 @@ export default function Navbar() {
   
     return (
       <>
-        <nav  className={`nav-bar-full w-full fixed z-50 transition-all ${scrolled ? 'transform -translate-y-[120px]' : 'transform translate-y-0'}`}>
+        <nav 
+          className={`nav-bar-full w-full z-50 transition-all ${scrolled ? 'transform -translate-y-[120px]' : 'transform translate-y-0'}`}
+          style={{ position: 'relative', zIndex: 50 }} // Ensure navbar is on top
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="nav-bar flex items-center justify-between h-[120px]">
               <div className="flex items-center">
@@ -109,4 +112,4 @@ export default function Navbar() {
         <MobileMenu isOpen={isOpen} onClose={handleClose} />
       </>
     );
-  }
+}

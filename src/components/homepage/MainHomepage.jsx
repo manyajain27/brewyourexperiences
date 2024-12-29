@@ -10,12 +10,11 @@ import './MainHomepage.css'
 function MainHomepage() {
   return (
     <div>
-      
-      <HomeSection/>
-      <About/>
-      <UpcomingTrips/>
-      <ContactUs/>
-      <Footer/>
+      <HomeSection />
+      <About showNavbar={false} />
+      <UpcomingTrips showNavbar={false} />
+      <ContactUs showNavbar={false} />
+      <Footer />
     </div>
   )
 }
