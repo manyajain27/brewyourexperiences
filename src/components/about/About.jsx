@@ -1,9 +1,8 @@
 import React from 'react'
 
-
 function About() {
     return (
-        <div className="min-h-screen bg-white py-24 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen md:h-auto bg-white py-24 md:py-24 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">What We Do</h2>

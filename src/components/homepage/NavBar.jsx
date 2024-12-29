@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import MobileMenu from './MobileMenu';
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +25,13 @@ export default function Navbar() {
     };
   }, []);
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <nav className={`nav-bar-full w-full z-50 transition-all ${scrolled ? 'transform -translate-y-[120px]' : 'transform translate-y-0'}`}>
+    <>
+        <nav className={`nav-bar-full w-full z-50 transition-all ${scrolled ? 'transform -translate-y-[120px]' : 'transform translate-y-0'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="nav-bar flex items-center justify-between h-[120px]">
           <div className="flex items-center">
@@ -58,5 +65,8 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+    <MobileMenu isOpen={isOpen} onClose={handleClose} />
+    </>
+    
   );
 }
