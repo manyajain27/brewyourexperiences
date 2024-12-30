@@ -3,13 +3,59 @@ import { Facebook, Instagram, Twitter, MapPin, Mail, Phone, Loader, CheckCircle,
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
+const NewsletterForm = ({ email, setEmail, status, message, onSubmit, className = "" }) => (
+  <form onSubmit={onSubmit} className={`space-y-4 ${className}`}>
+    <input
+      type="email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      placeholder="Your email address"
+      className="w-full px-4 py-2 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:border-[#27C3C5] transition-colors duration-200"
+      disabled={status === 'loading'}
+      required
+    />
+    <motion.button 
+      type="submit"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      className="w-full bg-[#27C3C5] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#1fa9ab] transition-colors flex items-center justify-center"
+      disabled={status === 'loading'}
+    >
+      {status === 'loading' ? (
+        <Loader className="animate-spin h-5 w-5" />
+      ) : (
+        'Subscribe'
+      )}
+    </motion.button>
+    {message && (
+      <div className={`flex items-center space-x-2 ${
+        status === 'error' 
+          ? message.includes('already subscribed') 
+            ? 'text-yellow-400'
+            : 'text-red-400'
+          : 'text-green-400'
+      }`}>
+        {status === 'error' ? (
+          message.includes('already subscribed') ? (
+            <AlertCircle className="h-4 w-4" />
+          ) : (
+            <XCircle className="h-4 w-4" />
+          )
+        ) : (
+          <CheckCircle className="h-4 w-4" />
+        )}
+        <p className="text-sm">{message}</p>
+      </div>
+    )}
+  </form>
+);
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
 
-  // Subtle fade in animation variants
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -19,7 +65,6 @@ const Footer = () => {
     }
   };
 
-  // Social icon hover animation
   const iconHover = {
     hover: { 
       scale: 1.1,
@@ -40,7 +85,6 @@ const Footer = () => {
       setMessage('Successfully subscribed!');
       setEmail('');
       
-      // Reset success message after 5 seconds
       setTimeout(() => {
         setStatus('idle');
         setMessage('');
@@ -48,68 +92,18 @@ const Footer = () => {
     } catch (error) {
       setStatus('error');
       
-      // Check if it's an already subscribed error
       if (error.response?.data?.error === 'This email is already subscribed.') {
         setMessage('You\'re already part of our newsletter family!');
       } else {
         setMessage(error.response?.data?.error || 'Subscription failed. Please try again.');
       }
       
-      // Reset error message after 5 seconds
       setTimeout(() => {
         setStatus('idle');
         setMessage('');
       }, 5000);
     }
   };
-
-  // Newsletter Form Component
-  const NewsletterForm = ({ className = "" }) => (
-    <form onSubmit={handleSubscribe} className={`space-y-4 ${className}`}>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Your email address"
-        className="w-full px-4 py-2 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:border-[#27C3C5] transition-colors duration-200"
-        disabled={status === 'loading'}
-        required
-      />
-      <motion.button 
-        type="submit"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="w-full bg-[#27C3C5] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#1fa9ab] transition-colors flex items-center justify-center"
-        disabled={status === 'loading'}
-      >
-        {status === 'loading' ? (
-          <Loader className="animate-spin h-5 w-5" />
-        ) : (
-          'Subscribe'
-        )}
-      </motion.button>
-      {message && (
-        <div className={`flex items-center space-x-2 ${
-          status === 'error' 
-            ? message.includes('already subscribed') 
-              ? 'text-yellow-400'
-              : 'text-red-400'
-            : 'text-green-400'
-        }`}>
-          {status === 'error' ? (
-            message.includes('already subscribed') ? (
-              <AlertCircle className="h-4 w-4" />
-            ) : (
-              <XCircle className="h-4 w-4" />
-            )
-          ) : (
-            <CheckCircle className="h-4 w-4" />
-          )}
-          <p className="text-sm">{message}</p>
-        </div>
-      )}
-    </form>
-  );
 
   return (
     <motion.footer 
@@ -119,11 +113,8 @@ const Footer = () => {
       viewport={{ once: true }}
       variants={fadeIn}
     >
-      {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
-        {/* Mobile Footer (< 768px) */}
         <div className="md:hidden space-y-8">
-          {/* Company Info - Mobile */}
           <motion.div 
             className="text-center space-y-4"
             variants={fadeIn}
@@ -132,7 +123,6 @@ const Footer = () => {
               <span className="text-2xl font-bold text-white">BREW</span>
               <span className="text-xs">YOUR EXPERIENCES</span>
             </div>
-            {/* Social Icons */}
             <div className="flex justify-center space-x-6">
               {[Facebook, Instagram, Twitter].map((Icon, index) => (
                 <motion.a
@@ -149,16 +139,21 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Newsletter - Mobile */}
           <motion.div 
             className="space-y-3"
             variants={fadeIn}
           >
             <h3 className="text-base font-semibold text-white text-center pb-2">Stay Updated</h3>
-            <NewsletterForm className="space-y-3" />
+            <NewsletterForm 
+              email={email}
+              setEmail={setEmail}
+              status={status}
+              message={message}
+              onSubmit={handleSubscribe}
+              className="space-y-3"
+            />
           </motion.div>
 
-          {/* Essential Contact - Mobile */}
           <motion.div 
             className="text-sm space-y-2"
             variants={fadeIn}
@@ -174,9 +169,7 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        {/* Desktop Footer (≥ 768px) */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Company Info */}
           <motion.div 
             className="space-y-4"
             variants={fadeIn}
@@ -204,7 +197,6 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Quick Links */}
           <motion.div variants={fadeIn}>
             <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
@@ -222,7 +214,6 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Contact Info */}
           <motion.div variants={fadeIn}>
             <h3 className="text-lg font-semibold text-white mb-4">Contact Info</h3>
             <ul className="space-y-4">
@@ -241,18 +232,22 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Newsletter */}
           <motion.div variants={fadeIn}>
             <h3 className="text-lg font-semibold text-white mb-4">Newsletter</h3>
             <p className="text-sm mb-4">
               Subscribe to our newsletter for travel tips and exclusive offers.
             </p>
-            <NewsletterForm />
+            <NewsletterForm 
+              email={email}
+              setEmail={setEmail}
+              status={status}
+              message={message}
+              onSubmit={handleSubscribe}
+            />
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 text-xs md:text-sm">
