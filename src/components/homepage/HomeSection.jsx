@@ -3,6 +3,7 @@ import { ArrowRight, ArrowDown } from 'lucide-react';
 import { TypeAnimation } from 'react-type-animation';
 import bgImage from '../../media/bali-bg.jpg';
 import NavBar from './NavBar';
+import { Link } from 'react-router-dom';
 
 function HomeSection() {
   return (
@@ -56,9 +57,12 @@ function HomeSection() {
 
             {/* Buttons */}
             <div className="button-group flex gap-4">
+              <Link to="/trips/upcoming">
               <button className="explore-trips-button text-black px-8 py-4 rounded-full font-semibold flex items-center gap-2 transition-colors">
                 Explore Trips <ArrowRight className="h-5 w-5" />
               </button>
+              </Link>
+              
               <button className="learn-more-button border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors">
                 Learn More
               </button>

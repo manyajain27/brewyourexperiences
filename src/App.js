@@ -7,6 +7,7 @@ import About from './components/about/About'
 import ContactUs from './components/contact/ContactUs';
 import UpcomingTrips from './components/trips/UpcomingTrips';
 import Footer from './components/footer/Footer';
+import BookTrip from './components/booking/BookTrip';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/about" element={<><About/><Footer/></>} />
         <Route path="/contact" element={<><ContactUs/><Footer/></>} />
         <Route path="/trips/upcoming" element={<><UpcomingTrips/><Footer/></>} />
+        <Route path="/book-trip" element={<><BookTrip/><Footer/></>} />
       </Routes>
     </Router>
   );

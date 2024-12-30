@@ -96,9 +96,12 @@ export default function Navbar() {
                   <Link to="/faqs" className="nav-links text-gray-300 transition-colors px-3 py-2">FAQs</Link>
                   <Link to="/blog" className="nav-links text-gray-300 transition-colors px-3 py-2">Blog</Link>
                   <Link to="/contact" className="nav-links text-gray-300 transition-colors px-3 py-2">Contact</Link>
+                  <Link to='/book-trip'>
                   <button className="book-now text-black px-6 py-2 rounded-full font-semibold transition-colors">
                     <span>Book Now</span>
                   </button>
+                  </Link>
+                  
                 </div>
               </div>
               <div className="md:hidden">

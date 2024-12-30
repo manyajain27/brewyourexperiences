@@ -118,29 +118,17 @@ const MobileMenu = ({ isOpen, onClose }) => {
               </Link>
             </div>
 
-            {/* Quick Contact Info */}
-            <div className="mt-8 space-y-4 px-4">
-              <div className="flex items-center gap-3 text-gray-400">
-                <Phone className="h-5 w-5 text-[#27C3C5]" />
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center gap-3 text-gray-400">
-                <Mail className="h-5 w-5 text-[#27C3C5]" />
-                <span>info@brewyourexperiences.com</span>
-              </div>
-              <div className="flex items-center gap-3 text-gray-400">
-                <MapPin className="h-5 w-5 text-[#27C3C5]" />
-                <span>123 Adventure Street</span>
-              </div>
-            </div>
           </nav>
 
           {/* Bottom Action */}
           <div className="p-6 border-t border-gray-800">
+            <Link to='/book-trip'>
             <button className="w-full bg-[#27C3C5] text-black px-6 py-4 rounded-full font-semibold transition-all hover:scale-105 hover:bg-[#1fa9ab] flex items-center justify-center gap-2">
               Book Now
               <ArrowRight className="h-5 w-5" />
             </button>
+            </Link>
+    
           </div>
         </div>
       </div>
