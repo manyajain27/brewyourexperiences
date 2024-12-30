@@ -33,7 +33,7 @@ const Footer = () => {
     setStatus('loading');
 
     try {
-      const response = await axios.post('http://localhost:8000/api/subscribe/', {
+      const response = await axios.post('https://brew08.pythonanywhere.com/api/subscribe/', {
         email: email
       });
       setStatus('success');

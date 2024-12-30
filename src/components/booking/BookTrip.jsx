@@ -208,7 +208,7 @@ const BookTrip = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await axios.post('http://localhost:8000/api/booking/', formData);
+      const response = await axios.post('https://brew08.pythonanywhere.com/api/booking/', formData);
       
       if (response.status === 200) {
         setStep(4); // Show success message
