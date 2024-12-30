@@ -1,9 +1,13 @@
-import React from 'react';
-import { Facebook, Instagram, Twitter, MapPin, Mail, Phone } from 'lucide-react';
+import React, { useState } from 'react';
+import { Facebook, Instagram, Twitter, MapPin, Mail, Phone, Loader, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  const [message, setMessage] = useState('');
 
   // Subtle fade in animation variants
   const fadeIn = {
@@ -23,6 +27,89 @@ const Footer = () => {
       transition: { duration: 0.2 }
     }
   };
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/subscribe/', {
+        email: email
+      });
+      setStatus('success');
+      setMessage('Successfully subscribed!');
+      setEmail('');
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setStatus('idle');
+        setMessage('');
+      }, 5000);
+    } catch (error) {
+      setStatus('error');
+      
+      // Check if it's an already subscribed error
+      if (error.response?.data?.error === 'This email is already subscribed.') {
+        setMessage('You\'re already part of our newsletter family!');
+      } else {
+        setMessage(error.response?.data?.error || 'Subscription failed. Please try again.');
+      }
+      
+      // Reset error message after 5 seconds
+      setTimeout(() => {
+        setStatus('idle');
+        setMessage('');
+      }, 5000);
+    }
+  };
+
+  // Newsletter Form Component
+  const NewsletterForm = ({ className = "" }) => (
+    <form onSubmit={handleSubscribe} className={`space-y-4 ${className}`}>
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Your email address"
+        className="w-full px-4 py-2 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:border-[#27C3C5] transition-colors duration-200"
+        disabled={status === 'loading'}
+        required
+      />
+      <motion.button 
+        type="submit"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        className="w-full bg-[#27C3C5] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#1fa9ab] transition-colors flex items-center justify-center"
+        disabled={status === 'loading'}
+      >
+        {status === 'loading' ? (
+          <Loader className="animate-spin h-5 w-5" />
+        ) : (
+          'Subscribe'
+        )}
+      </motion.button>
+      {message && (
+        <div className={`flex items-center space-x-2 ${
+          status === 'error' 
+            ? message.includes('already subscribed') 
+              ? 'text-yellow-400'
+              : 'text-red-400'
+            : 'text-green-400'
+        }`}>
+          {status === 'error' ? (
+            message.includes('already subscribed') ? (
+              <AlertCircle className="h-4 w-4" />
+            ) : (
+              <XCircle className="h-4 w-4" />
+            )
+          ) : (
+            <CheckCircle className="h-4 w-4" />
+          )}
+          <p className="text-sm">{message}</p>
+        </div>
+      )}
+    </form>
+  );
 
   return (
     <motion.footer 
@@ -68,21 +155,7 @@ const Footer = () => {
             variants={fadeIn}
           >
             <h3 className="text-base font-semibold text-white text-center pb-2">Stay Updated</h3>
-            <form className="space-y-3">
-              <motion.input
-                whileFocus={{ scale: 1.02 }}
-                type="email"
-                placeholder="Your email address"
-                className="w-full px-4 py-2 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:border-[#27C3C5] text-sm"
-              />
-              <motion.button 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-[#27C3C5] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#1fa9ab] transition-colors text-sm"
-              >
-                Subscribe
-              </motion.button>
-            </form>
+            <NewsletterForm className="space-y-3" />
           </motion.div>
 
           {/* Essential Contact - Mobile */}
@@ -174,21 +247,7 @@ const Footer = () => {
             <p className="text-sm mb-4">
               Subscribe to our newsletter for travel tips and exclusive offers.
             </p>
-            <form className="space-y-4">
-              <motion.input
-                whileFocus={{ scale: 1.02 }}
-                type="email"
-                placeholder="Your email address"
-                className="w-full px-4 py-2 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:border-[#27C3C5]"
-              />
-              <motion.button 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-[#27C3C5] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#1fa9ab] transition-colors"
-              >
-                Subscribe
-              </motion.button>
-            </form>
+            <NewsletterForm />
           </motion.div>
         </div>
       </div>
@@ -197,7 +256,7 @@ const Footer = () => {
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 text-xs md:text-sm">
-            <div className='flex gap-3'>
+            <div className="flex gap-3">
               © {currentYear} Brew Your Experiences . 
               <div>All rights reserved.</div>
             </div>

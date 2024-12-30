@@ -1,21 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Instagram as InstagramIcon } from 'lucide-react';
 import NavBar from '../homepage/NavBar';
 import { motion } from 'framer-motion';
 
 function ContactUs({ showNavbar = true }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const response = await fetch('http://localhost:8000/api/contact/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus({ type: 'success', message: 'Message sent successfully!' });
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setStatus({ type: 'error', message: data.error || 'Something went wrong. Please try again.' });
+      }
+    } catch (error) {
+      setStatus({ type: 'error', message: 'Failed to send message. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white relative">
       {showNavbar && <NavBar />}
       
-      {/* Background image and overlay */}
       <div className="absolute inset-0">
-        {/* Uncomment below to add background image */}
-        {/* <div className="absolute inset-0 bg-gray-200" style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover' }}></div> */}
         <div className="absolute inset-0 bg-gray-200"></div>
       </div>
 
-      {/* Content */}
       <div className="relative max-w-7xl mx-auto py-9 px-4 sm:px-6 lg:px-8">
         <motion.div 
           className="text-center mb-16"
@@ -42,11 +80,19 @@ function ContactUs({ showNavbar = true }) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <form className="space-y-6">
+            {status.message && (
+              <div className={`mb-4 p-3 rounded ${
+                status.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+              }`}>
+                {status.message}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
               {[
-                { label: "Name", type: "text", placeholder: "Enter your name" },
-                { label: "Email", type: "email", placeholder: "Enter your email" },
-                { label: "Phone Number (WhatsApp)", type: "number", placeholder: "(+91)" }
+                { label: "Name", name: "name", type: "text", placeholder: "Enter your name" },
+                { label: "Email", name: "email", type: "email", placeholder: "Enter your email" },
+                { label: "Phone Number (WhatsApp)", name: "phone", type: "tel", placeholder: "(+91)" }
               ].map((field, index) => (
                 <motion.div 
                   key={index}
@@ -58,8 +104,12 @@ function ContactUs({ showNavbar = true }) {
                   <label className="block text-sm font-medium text-gray-700">{field.label}</label>
                   <input
                     type={field.type}
+                    name={field.name}
+                    value={formData[field.name]}
+                    onChange={handleChange}
                     placeholder={field.placeholder}
                     className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#27C3C5] focus:ring-[#27C3C5]"
+                    required={field.name !== 'phone'}
                   />
                 </motion.div>
               ))}
@@ -72,18 +122,26 @@ function ContactUs({ showNavbar = true }) {
               >
                 <label className="block text-sm font-medium text-gray-700">Message</label>
                 <textarea 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   rows={4} 
                   placeholder="Write down your message..." 
                   className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#27C3C5] focus:ring-[#27C3C5]"
+                  required
                 />
               </motion.div>
               
               <motion.button 
-                className="w-full bg-[#27C3C5] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#1fa9ab] transition-colors"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full bg-[#27C3C5] text-white px-6 py-3 rounded-full font-semibold transition-colors ${
+                  isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:bg-[#1fa9ab]'
+                }`}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </motion.button>
             </form>
           </motion.div>
