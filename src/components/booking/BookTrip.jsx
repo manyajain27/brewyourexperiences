@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Mail, Calendar, Users, Clock, Camera, Coffee, Utensils, Heart, ArrowRight, ArrowLeft, Check, X, ChevronDown, ChevronUp, Plane, Hotel, MapPin, Utensils as Food, Wifi, Car } from 'lucide-react';
 import NavBar from '../homepage/NavBar';
 import axios from 'axios';
@@ -17,6 +17,10 @@ const BookTrip = () => {
     extras: [],
     notes: ''
   });
+
+  useEffect(() => {
+    window.scrollTo({ top: 320, behavior: 'smooth' });
+  }, [step]);
 
   const trips = [
     {
