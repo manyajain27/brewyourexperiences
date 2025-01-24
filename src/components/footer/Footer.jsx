@@ -24,7 +24,7 @@ const NewsletterForm = ({ email, setEmail, status, message, onSubmit, className 
       {status === 'loading' ? (
         <Loader className="animate-spin h-5 w-5" />
       ) : (
-        'Subscribe'
+        'Subscribe to our Newsletter'
       )}
     </motion.button>
     {message && (
