@@ -10,7 +10,7 @@ function About({ showNavbar = true }) {
     const images = [img1, img2, img3, img4]; // Array of image imports
 
     return (
-        <div className="min-h-screen md:h-auto bg-gray-200">
+        <div className="min-h-screen md:h-auto bg-gray-200 overflow-hidden">
             {showNavbar && <NavBar />}
 
             <div className="max-w-7xl mx-auto py-9 px-4 sm:px-6 lg:px-8">

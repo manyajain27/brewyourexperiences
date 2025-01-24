@@ -63,7 +63,7 @@ function FAQs({ showNavbar = true }) {
   ];
 
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-white relative overflow-hidden">
         {showNavbar && <NavBar />}
 
         <div className="relative max-w-3xl mx-auto py-9 px-4 sm:px-6 lg:px-8">

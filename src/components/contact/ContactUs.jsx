@@ -47,7 +47,7 @@ function ContactUs({ showNavbar = true }) {
   };
 
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-white relative overflow-hidden ">
       {showNavbar && <NavBar />}
       
       <div className="absolute inset-0">

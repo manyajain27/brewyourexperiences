@@ -11,7 +11,7 @@ function HomeSection() {
       {/* Background Image */}
       <div 
         // Use Tailwind's responsive classes for conditional height
-        className="relative min-h-screen md:h-auto" // md applies to iPad-size screens
+        className="relative min-h-screen md:h-auto overflow-hidden" // md applies to iPad-size screens
       >
         <div className="absolute inset-0">
           <img
