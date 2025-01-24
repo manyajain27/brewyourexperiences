@@ -19,7 +19,9 @@ const BookTrip = () => {
   });
 
   useEffect(() => {
-    window.scrollTo({ top: 320, behavior: 'smooth' });
+    if ([2, 3, 4].includes(step)) {
+      window.scrollTo({ top: 320, behavior: 'smooth' });
+    }
   }, [step]);
 
   const trips = [
