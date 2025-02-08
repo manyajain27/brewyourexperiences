@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Mail, Calendar, Users, Clock, Camera, Coffee, Utensils, Heart, ArrowRight, ArrowLeft, Check, X, ChevronDown, ChevronUp, Plane, Hotel, MapPin, Utensils as Food, Wifi, Car } from 'lucide-react';
 import NavBar from '../homepage/NavBar';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
 
 const BookTrip = () => {
@@ -265,8 +266,14 @@ const BookTrip = () => {
     </div>
   );
 
-  const renderStep1 = () => (
-    <div className="space-y-6">
+ const renderStep1 = () => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+      className="space-y-6"
+    >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
@@ -275,7 +282,7 @@ const BookTrip = () => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#27C3C5]"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your full name"
             required
           />
@@ -287,7 +294,7 @@ const BookTrip = () => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#27C3C5]"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="your@email.com"
             required
           />
@@ -299,7 +306,7 @@ const BookTrip = () => {
             name="phone"
             value={formData.phone}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#27C3C5]"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your phone number"
             required
           />
@@ -312,13 +319,13 @@ const BookTrip = () => {
             value={formData.travelers}
             onChange={handleInputChange}
             min="1"
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#27C3C5]"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Number of travelers"
             required
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 
   const renderStep2 = () => (
@@ -457,13 +464,30 @@ const BookTrip = () => {
     <div className="min-h-screen bg-gray-50 overflow-hidden">
         <NavBar />
       <div className="max-w-4xl mx-auto py-9 px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Book Your Adventure
-          </h2>
-          <div className="w-24 h-1 bg-[#27C3C5] mx-auto mb-8"></div>
-          <p className="text-gray-600">Let us help you plan your perfect getaway.</p>
-        </div>
+      <div className="text-center mb-12">
+        <motion.h2
+          className="text-4xl font-bold text-gray-900 mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          Book Your Adventure
+        </motion.h2>
+        <motion.div
+          className="w-24 h-1 bg-[#27C3C5] mx-auto mb-8"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        ></motion.div>
+        <motion.p
+          className="text-gray-600"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+        >
+          Let us help you plan your perfect getaway.
+        </motion.p>
+      </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
           {step < 4 && renderProgressBar()}
